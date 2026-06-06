@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   req.user = {
-    _id: "PASTE_YOUR_TEST_USER_ID_HERE",
+    _id: "6842348a123456789abcdef0",
   };
 
   next();
