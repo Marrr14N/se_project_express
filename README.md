@@ -48,5 +48,5 @@ This backend API allows users to:
 
 ## Project Links
 
-- **GitHub Repository:** [View the Source Code](PASTE-YOUR-GITHUB-REPOSITORY-LINK)
+- **GitHub Repository:** [View the Source Code](https://github.com/Marrr14N/se_project_express)
 - **Project Pitch Video:** [Watch the Presentation](https://drive.google.com/file/d/1_IKEHRiU4k3Q2nMgXcvi9X3_W6RFld-k/view?usp=sharing)
