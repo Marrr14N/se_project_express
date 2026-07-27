@@ -15,7 +15,13 @@ const {
 const createUser = (req, res) => {
   const { name, avatar, email, password } = req.body;
 
-  bcrypt
+  if (!name || !avatar || !email || !password) {
+    return res.status(BAD_REQUEST).send({
+      message: "Name, avatar, email, and password are required.",
+    });
+  }
+
+  return bcrypt
     .hash(password, 10)
     .then((hash) =>
       User.create({
@@ -78,7 +84,7 @@ const login = (req, res) => {
     );
 };
 
-const getCurrentUser = (req, res) => {
+const getCurrentUser = (req, res) =>
   User.findById(req.user._id)
     .orFail()
     .then((user) => res.status(200).send(user))
@@ -101,12 +107,11 @@ const getCurrentUser = (req, res) => {
         message: "An error occurred on the server.",
       });
     });
-};
 
 const updateProfile = (req, res) => {
   const { name, avatar } = req.body;
 
-  User.findByIdAndUpdate(
+  return User.findByIdAndUpdate(
     req.user._id,
     { name, avatar },
     {
