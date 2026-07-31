@@ -75,19 +75,27 @@ const login = (req, res) => {
         expiresIn: "7d",
       });
 
-      return res.status(200).send({ token });
+      return res.send({ token });
     })
-    .catch(() =>
-      res.status(UNAUTHORIZED).send({
-        message: "Incorrect email or password.",
-      })
-    );
+    .catch((err) => {
+      console.error(err);
+
+      if (err.message === "Incorrect email or password") {
+        return res.status(UNAUTHORIZED).send({
+          message: err.message,
+        });
+      }
+
+      return res.status(INTERNAL_SERVER_ERROR).send({
+        message: "An error occurred on the server.",
+      });
+    });
 };
 
 const getCurrentUser = (req, res) =>
   User.findById(req.user._id)
     .orFail()
-    .then((user) => res.status(200).send(user))
+    .then((user) => res.send(user))
     .catch((err) => {
       console.error(err);
 
@@ -120,7 +128,7 @@ const updateProfile = (req, res) => {
     }
   )
     .orFail()
-    .then((user) => res.status(200).send(user))
+    .then((user) => res.send(user))
     .catch((err) => {
       console.error(err);
 
